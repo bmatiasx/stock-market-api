@@ -48,3 +48,5 @@ build/
 
 # IntelliJ
 /out/
+mvnw
+mvnw.cmd
