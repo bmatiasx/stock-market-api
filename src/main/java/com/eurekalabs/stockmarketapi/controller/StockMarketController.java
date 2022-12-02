@@ -47,7 +47,7 @@ public class StockMarketController {
         return new ResponseEntity<>(apiKey, HttpStatus.OK);
     }
 
-    @GetMapping("/price-intraday")
+    @GetMapping("/price")
     public ResponseEntity<?> getStockPrice(@RequestParam("key") String apiKey, @RequestParam("function") String function,
                                            @RequestParam("symbol") String symbol, @RequestParam("interval") String interval) {
         log.info(String.format("getStockPrice endpoint was called. Request params: key=%s, function=%s, symbol=%s, interval=%s",  apiKey, function, symbol, interval));
