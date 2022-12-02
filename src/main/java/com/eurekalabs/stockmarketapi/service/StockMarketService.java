@@ -4,10 +4,14 @@ import com.eurekalabs.stockmarketapi.error.UserValidationException;
 import com.eurekalabs.stockmarketapi.model.Price;
 import com.eurekalabs.stockmarketapi.model.User;
 import com.eurekalabs.stockmarketapi.rest.AlphaVantageClient;
+import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class StockMarketService {
@@ -18,7 +22,7 @@ public class StockMarketService {
     @Autowired
     private AlphaVantageClient client;
 
-    public String getApiKey(User user) {
+    public Map<String, String> getApiKey(User user) {
         if (!validateName(user.getName())) {
             throw new UserValidationException("not valid user");
         }
@@ -29,7 +33,10 @@ public class StockMarketService {
             throw new UserValidationException("not valid email");
         }
 
-        return String.format("api_key = %s", API_KEY);
+        Map<String, String> key = new HashMap<>();
+        key.put("apikey", API_KEY);
+
+        return key;
     }
 
     public Price getPriceIntraday(String apiKey, String function, String symbol, String interval) {

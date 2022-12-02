@@ -40,3 +40,69 @@ API call sample to get stock prices from Facebook:
 - Log every API call received, log format is up to you.
 
 **No frontend development is required, challenge will be reviewed using postman**
+
+
+## Current working endpoints examples
+
+### GetApiKey
+
+Request:
+````
+curl --location --request POST 'localhost:9090/api/stock-market/api-key' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Leslie",
+    "lastname": "Nielsen",
+    "email": "lnielsen@gmail.com"
+}'
+````
+Response:
+````
+{
+    "apikey": "X86NOH6II01P7R24"
+}
+````
+### Fetch stock prices intraday
+
+With apikey obtained in previous step
+
+Request:
+````
+curl --location --request GET 'localhost:9090/api/stock-market/price-intraday?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=30min&key=X86NOH6II01P7R24' \
+--data-raw ''
+````
+Response:
+````
+{
+    "metadata": {
+        "information": "Intraday (30min) open, high, low, close prices and volume",
+        "symbol": "IBM",
+        "lastRefreshed": "2022-11-30T20:00:00",
+        "interval": "30min",
+        "outputSize": "Compact",
+        "timezone": "US/Eastern"
+    },
+    "timeSeries": [
+        {
+            "dateTime": "2022-11-30T20:00:00",
+            "variations": {
+                "open": 149.0300,
+                "high": 149.0300,
+                "low": 149.0300,
+                "close": 149.0300,
+                "volume": 653
+            }
+        },
+        {
+            "dateTime": "2022-11-30T18:30:00",
+            "variations": {
+                "open": 149.5500,
+                "high": 149.5500,
+                "low": 149.5500,
+                "close": 149.5500,
+                "volume": 421
+            }
+        },
+    ]
+}
+````
