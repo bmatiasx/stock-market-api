@@ -18,9 +18,7 @@ import java.util.Map;
 @RequestMapping("/api/stock-market")
 public class StockMarketController {
 
-
     public StockMarketService service;
-    LocalDateTime time;
 
     @Autowired
     public StockMarketController(StockMarketService service) {
